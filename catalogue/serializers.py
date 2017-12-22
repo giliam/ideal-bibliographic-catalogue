@@ -11,11 +11,11 @@ class FunctionSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Function
         fields = (
-            'id', 
-            'url', 
-            'name', 
-            'comments', 
-            'added_date', 
+            'id',
+            'url',
+            'name',
+            'comments',
+            'added_date',
             'updated_date'
         )
 
@@ -26,12 +26,65 @@ class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Person
         fields = (
-            'id', 
-            'url', 
-            'firstname', 
-            'lastname', 
-            'comments', 
-            'function', 
-            'added_date', 
+            'id',
+            'url',
+            'firstname',
+            'lastname',
+            'functions',
+            'themes',
+            'comments',
+            'added_date',
+            'updated_date'
+        )
+
+
+class ThemeSerializer(serializers.ModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='theme_detail', format='json')
+
+    class Meta:
+        model = models.Theme
+        fields = (
+            'id',
+            'url',
+            'name',
+            'parent_theme',
+            'level',
+            'comments',
+            'added_date',
+            'updated_date'
+        )
+
+
+class TypeRessourceSerializer(serializers.ModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='type_ressource_detail', format='json')
+
+    class Meta:
+        model = models.TypeRessource
+        fields = (
+            'id',
+            'url',
+            'name',
+            'comments',
+            'function',
+            'added_date',
+            'updated_date'
+        )
+
+
+class RessourceSerializer(serializers.ModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='ressource_detail', format='json')
+
+    class Meta:
+        model = models.Ressource
+        fields = (
+            'id',
+            'url',
+            'name',
+            'url',
+            'themes',
+            'type_ressource',
+            'comments',
+            'function',
+            'added_date',
             'updated_date'
         )

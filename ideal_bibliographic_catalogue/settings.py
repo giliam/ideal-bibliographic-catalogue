@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 
 from ideal_bibliographic_catalogue.generate_secret_key import secret_key_from_file
+from ideal_bibliographic_catalogue import parameters
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -58,7 +59,7 @@ ROOT_URLCONF = 'ideal_bibliographic_catalogue.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': parameters.TEMPLATES_DIRS if hasattr(parameters, "TEMPLATES_DIRS") else [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,7 +78,7 @@ WSGI_APPLICATION = 'ideal_bibliographic_catalogue.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
+DATABASES = parameters.DATABASES if hasattr(parameters, "DATABASES") else {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
@@ -122,8 +123,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = parameters.STATICFILES_DIRS if hasattr(parameters, "STATICFILES_DIRS") else (
+    "assets/",
+)
+STATIC_ROOT = parameters.STATIC_ROOT if hasattr(parameters, "STATIC_ROOT") else "/var/www/example.com/static/"
 
-REST_FRAMEWORK = {
+REST_FRAMEWORK = parameters.REST_FRAMEWORK if hasattr(parameters, "REST_FRAMEWORK") else {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [

@@ -30,10 +30,43 @@ class PersonDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = serializers.PersonSerializer
 
 
+class ThemeList(generics.ListCreateAPIView):
+    queryset = models.Theme.objects.all()
+    serializer_class = serializers.ThemeSerializer
+
+
+class ThemeDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Theme.objects.all()
+    serializer_class = serializers.ThemeSerializer
+
+
+class TypeRessourceList(generics.ListCreateAPIView):
+    queryset = models.TypeRessource.objects.all()
+    serializer_class = serializers.TypeRessourceSerializer
+
+
+class TypeRessourceDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.TypeRessource.objects.all()
+    serializer_class = serializers.TypeRessourceSerializer
+
+
+class RessourceList(generics.ListCreateAPIView):
+    queryset = models.Ressource.objects.all()
+    serializer_class = serializers.RessourceSerializer
+
+
+class RessourceDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = models.Ressource.objects.all()
+    serializer_class = serializers.RessourceSerializer
+
+
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def api_root(request, format=None):
     return response.Response({
         'function_list': reverse('function_list', request=request, format=format),
         'person_list': reverse('person_list', request=request, format=format),
+        'theme_list': reverse('theme_list', request=request, format=format),
+        'type_ressource_list': reverse('type_ressource_list', request=request, format=format),
+        'ressource_list': reverse('ressource_list', request=request, format=format),
     })
